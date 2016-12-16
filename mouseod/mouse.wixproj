@@ -1,0 +1,54 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+        <PropertyGroup>
+		
+                <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+                <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+                <ProductVersion>3.0</ProductVersion>
+                <ProjectGuid>{c523055d-a9d0-4318-ae85-ec934d33204b}</ProjectGuid>
+                <SchemaVersion>2.0</SchemaVersion>
+                <OutputName>mouse_$(Cultures)</OutputName>
+                <OutputType>Package</OutputType>
+				<DefineSolutionProperties>false</DefineSolutionProperties>
+				<LinkerTreatWarningsAsErrors>False</LinkerTreatWarningsAsErrors>
+				<LinkerVerboseOutput>False</LinkerVerboseOutput>
+				<SuppressIces></SuppressIces>
+				<WixVariables>ext=WixUIExtension,WixUI</WixVariables>
+				<Cultures></Cultures>
+                <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+        </PropertyGroup>
+        <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+                <OutputPath>bin\$(Configuration)\</OutputPath>
+                <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+                <DefineConstants>Debug</DefineConstants>
+        </PropertyGroup>
+        <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+                <OutputPath>bin\$(Configuration)\</OutputPath>
+                <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+        </PropertyGroup>
+		
+        <ItemGroup>
+                <Compile Include="Product.wxs" />
+        </ItemGroup>
+		<ItemGroup>
+			<WixExtension Include="WixUIExtension">
+			  <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+			  <Name>WixUIExtension</Name>
+			</WixExtension>
+		</ItemGroup>
+		<Target Name="CopyFilesForModule" AfterTargets="AfterBuild">
+		  <CreateItem Include="$(TargetPath)" Exclude="">
+			<Output TaskParameter="Include" ItemName="MySourceFiles" />
+		  </CreateItem>
+		  <Copy SourceFiles="@(MySourceFiles)" DestinationFolder="$(TargetDir)bundle">
+			<Output
+				  TaskParameter="CopiedFiles"
+				  ItemName="Changed" />
+		  </Copy>
+		  <Message Text="sourcefiles: @(MySourceFiles)" />
+		  <Message Text="changed:@(Changed)" Importance="high" />
+		</Target>
+		
+		 
+        <Import Project="$(WixTargetsPath)" />
+
+    </Project>

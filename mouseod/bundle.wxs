@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Bundle
+  Name="Mouse odometer"
+  Version="1.0.0.0"
+  Manufacturer="Vladimir Korotenko"
+  UpgradeCode="{A6A24EA5-1A5D-4676-A360-5D0BE5CAEF90}">
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+
+    <Chain>
+
+      <MsiPackage
+	  SourceFile="bin\Release\mouse_en-us.msi"
+	  Id="MouseId"
+	  Cache="yes"
+	  Visible="yes"/>
+    </Chain>
+  </Bundle>
+</Wix>
