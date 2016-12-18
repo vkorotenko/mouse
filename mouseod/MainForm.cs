@@ -15,7 +15,7 @@ namespace mouseod
         bool isMousepres;
         bool isCtrl;
         string helpfile = "index.html";
-        string siteUrl = "https://github.com/vkorotenko/mouse/wiki/Home";
+        string siteUrl = "https://github.com/vkorotenko/mouse";
         string donateUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3KREUUVLXCGT6";
         double baseDistance;
         double currentDistance;
@@ -67,6 +67,7 @@ namespace mouseod
             onTopToolStripMenuItem.Checked = TopMost;
             startWithWindowsToolStripMenuItem.Checked = Settings.StartWithWindows;
             meterOrInchToolStripMenuItem.Checked = Settings.IsMeter;
+            SetLengthLabel();
             FillLanguageMenu();
 
             hideToolStripMenuItem.Checked = Settings.Hide;
@@ -80,11 +81,16 @@ namespace mouseod
 
         private void FillLanguageMenu()
         {
+            var path = Application.ExecutablePath;
+            var dir = Path.GetDirectoryName(path);
+            var satellite = "mouseod.resources.dll";
             AddCulture("en");
-            AddCulture("ru");
+            if (File.Exists(Path.Combine(dir, "RU\\" + satellite)))
+                AddCulture("ru");
             languageToolStripMenuItem.Enabled = true;
         }
-        void AddCulture(string name) {
+        void AddCulture(string name)
+        {
             var culture = new CultureInfo(name);
             var menuitem = new ToolStripMenuItem(culture.DisplayName);
             menuitem.Tag = culture;
@@ -136,9 +142,21 @@ namespace mouseod
         private void meterOrInchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Settings.IsMeter = meterOrInchToolStripMenuItem.Checked;
+            SetLengthLabel();
+            SetTotalLabel();
             Save();
         }
+        void SetLengthLabel()
+        {
+            ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            string r;
 
+            r = resources.GetString("totalLengthLabel.Text");
+            if (!Settings.IsMeter)
+                totalLengthLabel.Text = resources.GetString("totalLengthLabelInch.Text");
+            else
+                totalLengthLabel.Text = resources.GetString("totalLengthLabel.Text");
+        }
         #region MouseHook
         private void globalEventProvider_MouseMoveExt(object sender, Gma.UserActivityMonitor.MouseEventExtArgs e)
         {
@@ -156,7 +174,6 @@ namespace mouseod
                 baseLabel.Text = baseDistance.ToString("0");
             }
 
-            SetTotalLabel();
             var res = (currentDistance / baseDistance) * Settings.BaseFx;
             resultLabel.Text = res.ToString();
             SetTotalLabel();

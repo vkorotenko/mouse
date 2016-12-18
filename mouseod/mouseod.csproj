@@ -103,8 +103,8 @@
   <ItemGroup>
     <None Include="app.ico" />
     <None Include="bundle.wxs" />
-    <None Include="lang\en-US\License.rtf" />
-    <None Include="lang\ru-RU\License.rtf" />
+    <None Include="lang\mouse_en-us.rtf" />
+    <None Include="lang\mouse_ru-ru.rtf" />
     <None Include="makebundle.bat" />
     <None Include="mouse.wixproj" />
     <None Include="mousebundle.wixproj" />
