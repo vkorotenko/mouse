@@ -87,6 +87,8 @@ namespace mouseod
             AddCulture("en");
             if (File.Exists(Path.Combine(dir, "RU\\" + satellite)))
                 AddCulture("ru");
+            if (File.Exists(Path.Combine(dir, "FR\\" + satellite)))
+                AddCulture("fr");
             languageToolStripMenuItem.Enabled = true;
         }
         void AddCulture(string name)

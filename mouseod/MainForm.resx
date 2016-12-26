@@ -126,6 +126,9 @@
   <data name="currentButton.Text" xml:space="preserve">
     <value>c</value>
   </data>
+  <data name="baseButton.Text" xml:space="preserve">
+    <value>c</value>
+  </data>
   <data name="&gt;&gt;baseLabelLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -158,14 +161,11 @@
   <data name="&gt;&gt;startWithWindowsToolStripMenuItem.Name" xml:space="preserve">
     <value>startWithWindowsToolStripMenuItem</value>
   </data>
-  <data name="xAxisLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="&gt;&gt;currentButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="baseButton.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+  <data name="xAxisLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;baseButton.Parent" xml:space="preserve">
     <value>distanceGroupBox</value>
@@ -197,9 +197,6 @@
   <data name="resultLabel.Text" xml:space="preserve">
     <value>_</value>
   </data>
-  <data name="&gt;&gt;resultLabel.Parent" xml:space="preserve">
-    <value>calculationGroupBox</value>
-  </data>
   <data name="&gt;&gt;timer.Name" xml:space="preserve">
     <value>timer</value>
   </data>
@@ -220,9 +217,6 @@
   </data>
   <data name="&gt;&gt;meterOrInchToolStripMenuItem.Name" xml:space="preserve">
     <value>meterOrInchToolStripMenuItem</value>
-  </data>
-  <data name="currentButton.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
   </data>
   <data name="baseLabelLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 34</value>
@@ -286,9 +280,6 @@
   </data>
   <data name="labelY.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="currentNameLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="xAxisLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 17</value>
@@ -371,14 +362,14 @@
   <data name="&gt;&gt;mainMenuStrip.Name" xml:space="preserve">
     <value>mainMenuStrip</value>
   </data>
+  <data name="&gt;&gt;calculationGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="currentLengthLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>171, 17</value>
   </data>
   <data name="baseLengthLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 17</value>
-  </data>
-  <data name="&gt;&gt;labelX.Name" xml:space="preserve">
-    <value>labelX</value>
   </data>
   <data name="baseCoefficientLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 17</value>
@@ -404,8 +395,11 @@
   <data name="resultLabel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="coordinatesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 78</value>
+  <data name="baseCoefficientLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 22</value>
+  </data>
+  <data name="currentNameLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;totalLabelLabel.Name" xml:space="preserve">
     <value>totalLabelLabel</value>
@@ -497,6 +491,9 @@
   <data name="&gt;&gt;currentLengthLabel.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="baseButton.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
   <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -566,10 +563,13 @@
   <data name="&gt;&gt;distanceGroupBox.Name" xml:space="preserve">
     <value>distanceGroupBox</value>
   </data>
-  <data name="&gt;&gt;homeSiteToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="coordinatesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 78</value>
   </data>
   <data name="&gt;&gt;languageToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;homeSiteToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="languageToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
@@ -592,9 +592,6 @@
   </data>
   <data name="baseLengthLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>171, 34</value>
-  </data>
-  <data name="&gt;&gt;totalLabel.Parent" xml:space="preserve">
-    <value>distanceGroupBox</value>
   </data>
   <data name="&gt;&gt;baseBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -653,8 +650,8 @@
   <data name="hideToolStripMenuItem.Text" xml:space="preserve">
     <value>Hide</value>
   </data>
-  <data name="baseCoefficientLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 22</value>
+  <data name="&gt;&gt;coordinatesGroupBox.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="currentLengthLabel.Text" xml:space="preserve">
     <value>Px</value>
@@ -665,8 +662,8 @@
   <data name="baseLabelLabel.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="showToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 22</value>
+  <data name="&gt;&gt;labelX.Name" xml:space="preserve">
+    <value>labelX</value>
   </data>
   <data name="contextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 48</value>
@@ -764,11 +761,14 @@
   <data name="baseLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 17</value>
   </data>
+  <data name="currentNameLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 17</value>
+  </data>
   <data name="&gt;&gt;mainMenuStrip.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="currentNameLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 17</value>
+  <data name="&gt;&gt;mainMenuStrip.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;contextToolStripMenuItem.Name" xml:space="preserve">
     <value>contextToolStripMenuItem</value>
@@ -940,8 +940,8 @@
         AAAAAAAAAAAAAAAAAAAAAAAA
 </value>
   </data>
-  <data name="&gt;&gt;yAxisLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="showToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 22</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>211, 6</value>
@@ -952,8 +952,8 @@
   <data name="totalLabelLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;calculationGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;totalLabel.Parent" xml:space="preserve">
+    <value>distanceGroupBox</value>
   </data>
   <data name="&gt;&gt;baseLengthLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -961,8 +961,8 @@
   <data name="distanceGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>146, 30</value>
   </data>
-  <data name="baseButton.Text" xml:space="preserve">
-    <value>c</value>
+  <data name="currentButton.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
   </data>
   <data name="&gt;&gt;labelX.Parent" xml:space="preserve">
     <value>coordinatesGroupBox</value>
@@ -973,14 +973,14 @@
   <data name="coordinatesGroupBox.Text" xml:space="preserve">
     <value>Coordinates</value>
   </data>
-  <data name="&gt;&gt;coordinatesGroupBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;yAxisLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;fileToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;mainMenuStrip.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;resultLabel.Parent" xml:space="preserve">
+    <value>calculationGroupBox</value>
   </data>
   <data name="&gt;&gt;onTopToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1003,28 +1003,28 @@
   <data name="currentButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 23</value>
   </data>
-  <data name="mainMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="mainMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 0</value>
-  </data>
-  <data name="contextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="contextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 55</value>
-  </data>
-  <data name="$this.TrayHeight" type="System.Int32, mscorlib">
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>109</value>
-  </data>
-  <data name="timer.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>348, 15</value>
-  </data>
-  <data name="$this.Localizable" type="System.Boolean, mscorlib">
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </data>
-  <data name="notifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="notifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>433, 15</value>
-  </data>
-  <data name="globalEventProvider.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="globalEventProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>164, 17</value>
-  </data>
-  <data name="totalLengthLabelInch.Text" xml:space="preserve">
-    <value>In.</value>
-  </data>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>French</value>
+  </metadata>
 </root>

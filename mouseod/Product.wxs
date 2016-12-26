@@ -2,7 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Product Id="*"
 UpgradeCode="{EAB95AE7-AE1D-4835-89C2-D5E56E60508E}"
-Version="1.0.0.0"
+Version="1.0.2.0"
 Language="1049"
 Name="Mouse odometer"
 Manufacturer="Vladimir Korotenko">
@@ -26,7 +26,7 @@ Manufacturer="Vladimir Korotenko">
 
     <!-- Step 2: Add files to your installer package -->
     <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
-      <Component Id="mouseod.exe" 
+      <Component Id="mouseod.exe"
                  Guid="{A7A8E203-2A2F-4100-A56E-2BDC0789AEC8}">
         <File Id="mouseod.exe" Source="..\mouseod\bin\release\mouseod.exe" KeyPath="yes" Checksum="yes"/>
       </Component>
@@ -35,15 +35,23 @@ Manufacturer="Vladimir Korotenko">
       </Component>
       <Directory Name="RU" Id="RU">
         <Component Id="ruLang" Guid="{21AF604A-7D9E-44e2-AAA1-3CC7A23D50A7}">
-        <File Id="ruLang" 
-              Source="..\mouseod\bin\release\ru\mouseod.resources.dll" 
-              KeyPath="yes" 
-              Checksum="yes"/>
-      </Component>
+          <File Id="ruLang"
+                Source="..\mouseod\bin\release\ru\mouseod.resources.dll"
+                KeyPath="yes"
+                Checksum="yes"/>
+        </Component>
+      </Directory>
+      <Directory Name="FR" Id="FR">
+        <Component Id="frLang" Guid="{250B615D-7948-4e92-8DFD-7CD2C67630AF}">
+          <File Id="frLang"
+                Source="..\mouseod\bin\release\fr\mouseod.resources.dll"
+                KeyPath="yes"
+                Checksum="yes"/>
+        </Component>
       </Directory>
     </DirectoryRef>
     <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Id="ApplicationShortcut" 
+      <Component Id="ApplicationShortcut"
                  Guid="{E867E08D-0713-4de8-A9ED-DE24A8876D2C}">
         <Shortcut Id="ApplicationStartMenuShortcut"
                   Name="Mouse odometer"
@@ -61,7 +69,7 @@ Manufacturer="Vladimir Korotenko">
 
 
 
-      <!-- Step 3: Tell WiX to install the files -->
+    <!-- Step 3: Tell WiX to install the files -->
     <Feature Id="MainApplication"
              Title="Application files"
              Level="1"
@@ -77,6 +85,9 @@ Manufacturer="Vladimir Korotenko">
     <Feature Id="Langs" Title="Localization files" Level="1">
       <Feature Id="rulang" Title="Russian language" Level="1">
         <ComponentRef Id="ruLang" />
+      </Feature>
+      <Feature Id="frlang" Title="Francias language" Level="1">
+        <ComponentRef Id="frLang" />
       </Feature>
     </Feature>
   </Product>
