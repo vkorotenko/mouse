@@ -1,4 +1,6 @@
-﻿namespace mouseod
+﻿using Curvimeter.GH;
+
+namespace Curvimeter
 {
     partial class MainForm
     {
@@ -71,7 +73,7 @@
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.globalEventProvider = new Gma.UserActivityMonitor.GlobalEventProvider();
+            this.globalEventProvider = new GlobalEventProvider();
             this.mainMenuStrip.SuspendLayout();
             this.coordinatesGroupBox.SuspendLayout();
             this.distanceGroupBox.SuspendLayout();
@@ -133,7 +135,7 @@
             this.hideToolStripMenuItem.BackgroundImage = null;
             this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
             this.hideToolStripMenuItem.ShortcutKeyDisplayString = null;
-            this.hideToolStripMenuItem.Click += new System.EventHandler(this.hideToolStripMenuItem_Click);
+            this.hideToolStripMenuItem.Click += new System.EventHandler(this.HideItemClick);
             // 
             // onTopToolStripMenuItem
             // 
@@ -144,7 +146,7 @@
             this.onTopToolStripMenuItem.CheckOnClick = true;
             this.onTopToolStripMenuItem.Name = "onTopToolStripMenuItem";
             this.onTopToolStripMenuItem.ShortcutKeyDisplayString = null;
-            this.onTopToolStripMenuItem.Click += new System.EventHandler(this.onTopToolStripMenuItem_Click);
+            this.onTopToolStripMenuItem.Click += new System.EventHandler(this.OnTopToolStripMenuItemClick);
             // 
             // meterOrInchToolStripMenuItem
             // 
@@ -155,7 +157,7 @@
             this.meterOrInchToolStripMenuItem.CheckOnClick = true;
             this.meterOrInchToolStripMenuItem.Name = "meterOrInchToolStripMenuItem";
             this.meterOrInchToolStripMenuItem.ShortcutKeyDisplayString = null;
-            this.meterOrInchToolStripMenuItem.Click += new System.EventHandler(this.meterOrInchToolStripMenuItem_Click);
+            this.meterOrInchToolStripMenuItem.Click += new System.EventHandler(this.MeterOrInchItemClick);
             // 
             // startWithWindowsToolStripMenuItem
             // 
@@ -166,7 +168,7 @@
             this.startWithWindowsToolStripMenuItem.CheckOnClick = true;
             this.startWithWindowsToolStripMenuItem.Name = "startWithWindowsToolStripMenuItem";
             this.startWithWindowsToolStripMenuItem.ShortcutKeyDisplayString = null;
-            this.startWithWindowsToolStripMenuItem.Click += new System.EventHandler(this.startWithWindowsToolStripMenuItem_Click);
+            this.startWithWindowsToolStripMenuItem.Click += new System.EventHandler(this.StartWithWindowsClick);
             // 
             // toolStripSeparator1
             // 
@@ -207,7 +209,7 @@
             this.contextToolStripMenuItem.BackgroundImage = null;
             this.contextToolStripMenuItem.Name = "contextToolStripMenuItem";
             this.contextToolStripMenuItem.ShortcutKeyDisplayString = null;
-            this.contextToolStripMenuItem.Click += new System.EventHandler(this.contextToolStripMenuItem_Click);
+            this.contextToolStripMenuItem.Click += new System.EventHandler(this.ShowHelpClick);
             // 
             // donateToolStripMenuItem
             // 
@@ -217,7 +219,7 @@
             this.donateToolStripMenuItem.BackgroundImage = null;
             this.donateToolStripMenuItem.Name = "donateToolStripMenuItem";
             this.donateToolStripMenuItem.ShortcutKeyDisplayString = null;
-            this.donateToolStripMenuItem.Click += new System.EventHandler(this.donateToolStripMenuItem_Click);
+            this.donateToolStripMenuItem.Click += new System.EventHandler(this.DonateClick);
             // 
             // homeSiteToolStripMenuItem
             // 
@@ -227,7 +229,7 @@
             this.homeSiteToolStripMenuItem.BackgroundImage = null;
             this.homeSiteToolStripMenuItem.Name = "homeSiteToolStripMenuItem";
             this.homeSiteToolStripMenuItem.ShortcutKeyDisplayString = null;
-            this.homeSiteToolStripMenuItem.Click += new System.EventHandler(this.homeSiteToolStripMenuItem_Click);
+            this.homeSiteToolStripMenuItem.Click += new System.EventHandler(this.HomeSiteItemClick);
             // 
             // aboutToolStripMenuItem
             // 
@@ -237,7 +239,7 @@
             this.aboutToolStripMenuItem.BackgroundImage = null;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.ShortcutKeyDisplayString = null;
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutItemClick);
             // 
             // coordinatesGroupBox
             // 
@@ -435,7 +437,7 @@
             this.baseBox.BackgroundImage = null;
             this.baseBox.Font = null;
             this.baseBox.Name = "baseBox";
-            this.baseBox.TextChanged += new System.EventHandler(this.baseBox_TextChanged);
+            this.baseBox.TextChanged += new System.EventHandler(this.BaseBoxTextChanged);
             // 
             // baseCoefficientLabel
             // 
@@ -470,7 +472,7 @@
             this.showToolStripMenuItem.BackgroundImage = null;
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
             this.showToolStripMenuItem.ShortcutKeyDisplayString = null;
-            this.showToolStripMenuItem.Click += new System.EventHandler(this.showToolStripMenuItem_Click);
+            this.showToolStripMenuItem.Click += new System.EventHandler(this.ShowItemClick);
             // 
             // exitToolStripMenuItem1
             // 
@@ -480,7 +482,7 @@
             this.exitToolStripMenuItem1.BackgroundImage = null;
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
             this.exitToolStripMenuItem1.ShortcutKeyDisplayString = null;
-            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
+            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.ExitApplicationClick);
             // 
             // globalEventProvider
             // 
@@ -508,7 +510,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.TopMost = true;
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Load += new System.EventHandler(this.MainFormLoad);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.coordinatesGroupBox.ResumeLayout(false);
@@ -540,7 +542,7 @@
         private System.Windows.Forms.ToolStripMenuItem startWithWindowsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private Gma.UserActivityMonitor.GlobalEventProvider globalEventProvider;
+        private GlobalEventProvider globalEventProvider;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ToolStripMenuItem meterOrInchToolStripMenuItem;
         private System.Windows.Forms.GroupBox distanceGroupBox;

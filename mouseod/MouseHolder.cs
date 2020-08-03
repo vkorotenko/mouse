@@ -2,171 +2,171 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace mouseod
+namespace Curvimeter
 {
     public enum DeviceCap
     {
         /// <summary>
         /// Device driver version
         /// </summary>
-        DRIVERVERSION = 0,
+        SM_DRIVERVERSION = 0,
         /// <summary>
         /// Device classification
         /// </summary>
-        TECHNOLOGY = 2,
+        SM_TECHNOLOGY = 2,
         /// <summary>
         /// Horizontal size in millimeters
         /// </summary>
-        HORZSIZE = 4,
+        SM_HORZSIZE = 4,
         /// <summary>
         /// Vertical size in millimeters
         /// </summary>
-        VERTSIZE = 6,
+        SM_VERTSIZE = 6,
         /// <summary>
         /// Horizontal width in pixels
         /// </summary>
-        HORZRES = 8,
+        SM_HORZRES = 8,
         /// <summary>
         /// Vertical height in pixels
         /// </summary>
-        VERTRES = 10,
+        SM_VERTRES = 10,
         /// <summary>
         /// Number of bits per pixel
         /// </summary>
-        BITSPIXEL = 12,
+        SM_BITSPIXEL = 12,
         /// <summary>
         /// Number of planes
         /// </summary>
-        PLANES = 14,
+        SM_PLANES = 14,
         /// <summary>
         /// Number of brushes the device has
         /// </summary>
-        NUMBRUSHES = 16,
+        SM_NUMBRUSHES = 16,
         /// <summary>
         /// Number of pens the device has
         /// </summary>
-        NUMPENS = 18,
+        SM_NUMPENS = 18,
         /// <summary>
         /// Number of markers the device has
         /// </summary>
-        NUMMARKERS = 20,
+        SM_NUMMARKERS = 20,
         /// <summary>
         /// Number of fonts the device has
         /// </summary>
-        NUMFONTS = 22,
+        SM_NUMFONTS = 22,
         /// <summary>
         /// Number of colors the device supports
         /// </summary>
-        NUMCOLORS = 24,
+        SM_NUMCOLORS = 24,
         /// <summary>
         /// Size required for device descriptor
         /// </summary>
-        PDEVICESIZE = 26,
+        SM_PDEVICESIZE = 26,
         /// <summary>
         /// Curve capabilities
         /// </summary>
-        CURVECAPS = 28,
+        SM_CURVECAPS = 28,
         /// <summary>
         /// Line capabilities
         /// </summary>
-        LINECAPS = 30,
+        SM_LINECAPS = 30,
         /// <summary>
         /// Polygonal capabilities
         /// </summary>
-        POLYGONALCAPS = 32,
+        SM_POLYGONALCAPS = 32,
         /// <summary>
         /// Text capabilities
         /// </summary>
-        TEXTCAPS = 34,
+        SM_TEXTCAPS = 34,
         /// <summary>
         /// Clipping capabilities
         /// </summary>
-        CLIPCAPS = 36,
+        SM_CLIPCAPS = 36,
         /// <summary>
         /// Bitblt capabilities
         /// </summary>
-        RASTERCAPS = 38,
+        SM_RASTERCAPS = 38,
         /// <summary>
         /// Length of the X leg
         /// </summary>
-        ASPECTX = 40,
+        SM_ASPECTX = 40,
         /// <summary>
         /// Length of the Y leg
         /// </summary>
-        ASPECTY = 42,
+        SM_ASPECTY = 42,
         /// <summary>
         /// Length of the hypotenuse
         /// </summary>
-        ASPECTXY = 44,
+        SM_ASPECTXY = 44,
         /// <summary>
         /// Shading and Blending caps
         /// </summary>
-        SHADEBLENDCAPS = 45,
+        SM_SHADEBLENDCAPS = 45,
 
         /// <summary>
         /// Logical pixels inch in X
         /// </summary>
-        LOGPIXELSX = 88,
+        SM_LOGPIXELSX = 88,
         /// <summary>
         /// Logical pixels inch in Y
         /// </summary>
-        LOGPIXELSY = 90,
+        SM_LOGPIXELSY = 90,
 
         /// <summary>
         /// Number of entries in physical palette
         /// </summary>
-        SIZEPALETTE = 104,
+        SM_SIZEPALETTE = 104,
         /// <summary>
         /// Number of reserved entries in palette
         /// </summary>
-        NUMRESERVED = 106,
+        SM_NUMRESERVED = 106,
         /// <summary>
         /// Actual color resolution
         /// </summary>
-        COLORRES = 108,
+        SM_COLORRES = 108,
 
         // Printing related DeviceCaps. These replace the appropriate Escapes
         /// <summary>
         /// Physical Width in device units
         /// </summary>
-        PHYSICALWIDTH = 110,
+        SM_PHYSICALWIDTH = 110,
         /// <summary>
         /// Physical Height in device units
         /// </summary>
-        PHYSICALHEIGHT = 111,
+        SM_PHYSICALHEIGHT = 111,
         /// <summary>
         /// Physical Printable Area x margin
         /// </summary>
-        PHYSICALOFFSETX = 112,
+        SM_PHYSICALOFFSETX = 112,
         /// <summary>
         /// Physical Printable Area y margin
         /// </summary>
-        PHYSICALOFFSETY = 113,
+        SM_PHYSICALOFFSETY = 113,
         /// <summary>
         /// Scaling factor x
         /// </summary>
-        SCALINGFACTORX = 114,
+        SM_SCALINGFACTORX = 114,
         /// <summary>
         /// Scaling factor y
         /// </summary>
-        SCALINGFACTORY = 115,
+        SM_SCALINGFACTORY = 115,
 
         /// <summary>
         /// Current vertical refresh rate of the display device (for displays only) in Hz
         /// </summary>
-        VREFRESH = 116,
+        SM_VREFRESH = 116,
         /// <summary>
         /// Vertical height of entire desktop in pixels
         /// </summary>
-        DESKTOPVERTRES = 117,
+        SM_DESKTOPVERTRES = 117,
         /// <summary>
         /// Horizontal width of entire desktop in pixels
         /// </summary>
-        DESKTOPHORZRES = 118,
+        SM_DESKTOPHORZRES = 118,
         /// <summary>
         /// Preferred blt alignment
         /// </summary>
-        BLTALIGNMENT = 119
+        SM_BLTALIGNMENT = 119
     }
     public enum SystemMetric : int
     {
@@ -725,19 +725,19 @@ namespace mouseod
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
+        public static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDc);
 
-        public static Size GetScreenDPI()
+        public static Size GetScreenDpi()
         {
             // no error checking here - being lazy
             var dc = GetDC(IntPtr.Zero);
-            var x = GetDeviceCaps(dc, (int)DeviceCap.HORZSIZE);
-            var y = GetDeviceCaps(dc, (int)DeviceCap.VERTSIZE);
+            var x = GetDeviceCaps(dc, (int)DeviceCap.SM_HORZSIZE);
+            var y = GetDeviceCaps(dc, (int)DeviceCap.SM_VERTSIZE);
             try
             {
                 return new Size(
-                  GetDeviceCaps(dc, (int)DeviceCap.LOGPIXELSX),
-                  GetDeviceCaps(dc, (int)DeviceCap.LOGPIXELSY));
+                  GetDeviceCaps(dc, (int)DeviceCap.SM_LOGPIXELSX),
+                  GetDeviceCaps(dc, (int)DeviceCap.SM_LOGPIXELSY));
             }
             finally
             {
@@ -748,35 +748,26 @@ namespace mouseod
         static extern int GetSystemMetrics(SystemMetric smIndex);
 
         #endregion
-        private int displayRes;
-        public double Inches { get { return _ds / displayRes; } }
-        private Point previos;
+        private int _displayRes;
+        public double Inches => _ds / _displayRes;
+        private Point _previos;
         private double _ds;
-        public double Total { get { return _ds; } }
-        public double Santimeter
-        {
-            get
-            {
-                return Inches / 2.54;
-            }
-        }
+        public double Total => _ds;
+        public double Santimeter => Inches / 2.54;
+
         public MouseHolder(double start)
         {
-            displayRes = GetScreenDPI().Height;
+            _displayRes = GetScreenDpi().Height;
             _ds = start;
-            previos = new Point();
+            _previos = new Point();
         }
         public double Add(int x, int y)
         {
             var sz = new Point(x, y);
-            double distance = Math.Sqrt(Math.Abs(previos.X - sz.X) ^ 2 +
-                Math.Abs(previos.Y - sz.Y) ^ 2);
-            previos = sz;
-            if (!double.IsNaN(distance))
-                _ds += distance;
+            var distance = Math.Sqrt(Math.Abs(_previos.X - sz.X) ^ 2 + Math.Abs(_previos.Y - sz.Y) ^ 2);
+            _previos = sz;
+            if (!double.IsNaN(distance)) _ds += distance;
             return distance;
-
-
         }
     }
 }

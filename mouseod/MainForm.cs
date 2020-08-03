@@ -1,66 +1,68 @@
-﻿using System;
-using System.Globalization;
-using System.Windows.Forms;
+﻿using Curvimeter.Properties;
 using Microsoft.Win32;
-using mouseod.Properties;
-using System.Diagnostics;
-using System.IO;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Windows.Forms;
+using Curvimeter;
 
-namespace mouseod
+namespace Curvimeter
 {
     public partial class MainForm : Form
     {
         #region Variables
-        bool isMousepres;
-        bool isCtrl;
-        string helpfile = "index.html";
-        string siteUrl = "https://github.com/vkorotenko/mouse";
-        string donateUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3KREUUVLXCGT6";
-        double baseDistance;
-        double currentDistance;
-        MouseHolder _mh;
+
+        private bool _isMousepres;
+        private bool _isCtrl;
+        private string _helpfile = "index.html";
+        private string _siteUrl = "https://github.com/vkorotenko/mouse";
+        private string _donateUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3KREUUVLXCGT6";
+        private double _baseDistance;
+        private double _currentDistance;
+        private MouseHolder _mh;
         #endregion
         public MainForm()
         {
-            baseDistance = 0;
-            currentDistance = 0;
+            _baseDistance = 0;
+            _currentDistance = 0;
             InitializeComponent();
         }
-        Settings Settings { get { return Settings.Default; } }
-        private void onTopToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private static Settings Settings => Settings.Default;
+
+        private void OnTopToolStripMenuItemClick(object sender, EventArgs e)
         {
             TopMost = onTopToolStripMenuItem.Checked;
             Settings.OnTop = TopMost;
             Save();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();
 
-        private void startWithWindowsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void StartWithWindowsClick(object sender, EventArgs e)
         {
 
-            var valuename = "mouseod.exe";
-            var keyname = "Software\\Microsoft\\Windows\\CurrentVersion\\Run";
+            const string exeName = "mouseod.exe";
+            const string windowsCurrentVersionRun = "Software\\Microsoft\\Windows\\CurrentVersion\\Run";
             Settings.StartWithWindows = startWithWindowsToolStripMenuItem.Checked;
-            var rk = Registry.CurrentUser.OpenSubKey(keyname, true);
+            var rk = Registry.CurrentUser.OpenSubKey(windowsCurrentVersionRun, true);
+            if (rk == null) return;
             if (Settings.StartWithWindows)
             {
                 var path = Application.ExecutablePath;
-                rk.SetValue(valuename, path);
+                rk.SetValue(exeName, path);
             }
             else
             {
-                rk.DeleteValue(valuename);
+                rk.DeleteValue(exeName);
             }
             rk.Close();
             Save();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void MainFormLoad(object sender, EventArgs e)
         {
             _mh = new MouseHolder(Settings.Default.Total);
             TopMost = Settings.OnTop;
@@ -91,32 +93,31 @@ namespace mouseod
                 AddCulture("fr");
             languageToolStripMenuItem.Enabled = true;
         }
-        void AddCulture(string name)
+
+        private void AddCulture(string name)
         {
             var culture = new CultureInfo(name);
-            var menuitem = new ToolStripMenuItem(culture.DisplayName);
-            menuitem.Tag = culture;
+            var menuitem = new ToolStripMenuItem(culture.DisplayName) { Tag = culture };
 
             if (Settings.Language == culture.Name)
                 menuitem.Checked = true;
-            menuitem.Click += new EventHandler(menuitem_Click);
+            menuitem.Click += new EventHandler(LanguageMenuClick);
             languageToolStripMenuItem.DropDownItems.Add(menuitem);
         }
-        void menuitem_Click(object sender, EventArgs e)
+
+        private void LanguageMenuClick(object sender, EventArgs e)
         {
             var menuItem = (ToolStripMenuItem)sender;
-            if (menuItem != null)
+            if (menuItem == null) return;
+            var menu = languageToolStripMenuItem;
+            foreach (ToolStripMenuItem item in menu.DropDownItems)
             {
-                var menu = languageToolStripMenuItem;
-                foreach (ToolStripMenuItem item in menu.DropDownItems)
-                {
-                    item.Checked = false;
-                }
-                menuItem.Checked = true;
-                Settings.Language = ((CultureInfo)menuItem.Tag).Name;
-                Save();
-                Localize();
+                item.Checked = false;
             }
+            menuItem.Checked = true;
+            Settings.Language = ((CultureInfo)menuItem.Tag).Name;
+            Save();
+            Localize();
         }
 
         private void Localize()
@@ -129,7 +130,7 @@ namespace mouseod
 
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutItemClick(object sender, EventArgs e)
         {
             var form = new About();
             form.ShowDialog();
@@ -141,23 +142,18 @@ namespace mouseod
             Save();
         }
 
-        private void meterOrInchToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MeterOrInchItemClick(object sender, EventArgs e)
         {
             Settings.IsMeter = meterOrInchToolStripMenuItem.Checked;
             SetLengthLabel();
             SetTotalLabel();
             Save();
         }
-        void SetLengthLabel()
-        {
-            ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            string r;
 
-            r = resources.GetString("totalLengthLabel.Text");
-            if (!Settings.IsMeter)
-                totalLengthLabel.Text = resources.GetString("totalLengthLabelInch.Text");
-            else
-                totalLengthLabel.Text = resources.GetString("totalLengthLabel.Text");
+        private void SetLengthLabel()
+        {
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            totalLengthLabel.Text = resources.GetString(!Settings.IsMeter ? "totalLengthLabelInch.Text" : "totalLengthLabel.Text");
         }
         #region MouseHook
         private void globalEventProvider_MouseMoveExt(object sender, Gma.UserActivityMonitor.MouseEventExtArgs e)
@@ -165,22 +161,23 @@ namespace mouseod
             labelX.Text = e.X.ToString();
             labelY.Text = e.Y.ToString();
             var d = _mh.Add(e.X, e.Y);
-            if (isMousepres && !isCtrl)
+            if (_isMousepres && !_isCtrl)
             {
-                currentDistance += d;
-                currentLabel.Text = currentDistance.ToString("0");
+                _currentDistance += d;
+                currentLabel.Text = _currentDistance.ToString("0");
             }
-            if (isMousepres && isCtrl)
+            if (_isMousepres && _isCtrl)
             {
-                baseDistance += d;
-                baseLabel.Text = baseDistance.ToString("0");
+                _baseDistance += d;
+                baseLabel.Text = _baseDistance.ToString("0");
             }
 
-            var res = (currentDistance / baseDistance) * Settings.BaseFx;
+            var res = (_currentDistance / _baseDistance) * Settings.BaseFx;
             resultLabel.Text = res.ToString();
             SetTotalLabel();
         }
-        void SetTotalLabel()
+
+        private void SetTotalLabel()
         {
             if (!meterOrInchToolStripMenuItem.Checked)
                 totalLabel.Text = _mh.Santimeter.ToString("0.00");
@@ -189,12 +186,12 @@ namespace mouseod
         }
         private void globalEventProvider_MouseDown(object sender, MouseEventArgs e)
         {
-            isMousepres = true;
+            _isMousepres = true;
         }
 
         private void globalEventProvider_MouseUp(object sender, MouseEventArgs e)
         {
-            isMousepres = false;
+            _isMousepres = false;
         }
         #endregion
 
@@ -203,14 +200,14 @@ namespace mouseod
         private void globalEventProvider_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.RControlKey || e.KeyCode == Keys.LControlKey)
-                isCtrl = true;
+                _isCtrl = true;
 
         }
 
         private void globalEventProvider_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.RControlKey || e.KeyCode == Keys.LControlKey)
-                isCtrl = false;
+                _isCtrl = false;
         }
 
         #endregion
@@ -218,19 +215,19 @@ namespace mouseod
         #region Clear button handler
         private void currentButton_Click(object sender, EventArgs e)
         {
-            currentDistance = 0;
+            _currentDistance = 0;
             currentLabel.Text = 0.ToString();
         }
 
         private void baseButton_Click(object sender, EventArgs e)
         {
-            baseDistance = 0;
+            _baseDistance = 0;
             baseLabel.Text = 0.ToString();
         }
 
         #endregion
 
-        private void hideToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HideItemClick(object sender, EventArgs e)
         {
             Settings.Hide = hideToolStripMenuItem.Checked;
             Hide();
@@ -238,61 +235,52 @@ namespace mouseod
             Save();
         }
 
-        private void Save()
+        private static void Save()
         {
             Settings.Default.Save();
         }
 
-        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void ExitApplicationClick(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void showToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ShowItemClick(object sender, EventArgs e)
         {
             Show();
             showToolStripMenuItem.Enabled = false;
         }
 
-        private void baseBox_TextChanged(object sender, EventArgs e)
+        private void BaseBoxTextChanged(object sender, EventArgs e)
         {
-            double result = 1;
-            if (double.TryParse(baseBox.Text, out result))
-            {
-                Settings.BaseFx = result;
-                Save();
-            }
+            if (!double.TryParse(baseBox.Text, out var result)) return;
+            Settings.BaseFx = result;
+            Save();
         }
 
-        private void contextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ShowHelpClick(object sender, EventArgs e)
         {
-            Process proc = new Process();
+            var proc = new Process();
             var path = Path.GetDirectoryName(Application.ExecutablePath);
-            proc.StartInfo = new ProcessStartInfo(Path.Combine(path, helpfile));
+            proc.StartInfo = new ProcessStartInfo(Path.Combine(path, _helpfile));
             try
             {
                 proc.Start();
             }
             catch (Win32Exception ex)
             {
-                // Нет файла :(
+                Debug.WriteLine("No help file", ex);
             }
         }
 
-        private void homeSiteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HomeSiteItemClick(object sender, EventArgs e)
         {
-            Process proc = new Process();
-            var path = Path.GetDirectoryName(Application.ExecutablePath);
-            proc.StartInfo = new ProcessStartInfo(siteUrl);
-            proc.Start();
+            new Process { StartInfo = new ProcessStartInfo(_siteUrl) }.Start();
         }
 
-        private void donateToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DonateClick(object sender, EventArgs e)
         {
-            Process proc = new Process();
-            var path = Path.GetDirectoryName(Application.ExecutablePath);
-            proc.StartInfo = new ProcessStartInfo(donateUrl);
-            proc.Start();
+            new Process {StartInfo = new ProcessStartInfo(_donateUrl)}.Start();
         }
     }
 }
